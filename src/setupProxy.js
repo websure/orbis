@@ -3,14 +3,11 @@ const proxy = require("http-proxy-middleware");
 module.exports = function(app) {
   console.log("setup");
   app.use(
-    "/api",
+    "/streams",
     proxy({
       target: "https://api.stocktwits.com/api/2",
       changeOrigin: true,
-      autoRewrite: true
-      // pathRewrite: {
-      //   "^/api": ""
-      // }
+      autoRewrite: true     
     })
   );
 };

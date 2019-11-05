@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 const Routes = (props) => {
-    console.log('Routes ', props)
+    //console.log('Routes ', props)
     return (
         <Switch>
             <Route exact path='/demo' render={(props) => <DemoComponent aka={123} {...props}/>} />   
