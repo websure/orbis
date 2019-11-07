@@ -1,5 +1,5 @@
 {
-  "name": "new",
+  "name": "OrbisStockTwitsDemo",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -14,7 +14,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.0.1",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.1"
+    "semantic-ui-react": "^0.88.1",
+    "styled-components": "4.4.1"
   },
   "devDependencies": {
     "typescript": "3.3.3"

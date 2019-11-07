@@ -35,24 +35,8 @@ const AxiosClient = ({
     error => errorHandler(error)
   );
 
-  const get = params => {
-    const config = {
-      url: "/todos",
-      method: "get",
-      baseURL: "https://jsonplaceholder.typicode.com"
-      // proxy: {
-      //   host: "https://jsonplaceholder.typicode.com"
-      // }
-    };
-    console.log("GET ", config);
-    return instance.get(params);
-    //return instance.request(config);
-
-    // return axios({
-    //   method: "get",
-    //   url: `https://jsonplaceholder.typicode.com${params}`,
-    //   responseType: "json"
-    // });
+  const get = (url,config) => {
+    return instance.get(url,{params:{...config}});
   };
 
   return {
