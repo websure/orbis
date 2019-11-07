@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Api from "../../api";
-import Data from "./data.json";
 import {
   Feed,
   Icon,
-  Grid,
   Segment,
-  Statistic,
   Header,
   Card,
   Message,
-  Label,
   Divider,
   Loader,
   Dimmer
@@ -26,7 +22,7 @@ const StyledTweetCount = Styled.p`
   height: 30px;
   color: #fff;
   outline: 1px solid #ccc;
-  width: 20%;
+  width: 18%;
   background: #4183c4;
   margin-top: 5px;
   padding: 5px;
@@ -43,43 +39,50 @@ const StyledTweetCount = Styled.p`
 `;
 
 const TweetDetails = ({ symbol, removeSymbol }) => {
-  
   const [apiparams, setApiParams] = useState({});
-  const [refreshInterval, setRefreshInterval] = useState(null);
   const [tweets, setTweets] = useState([]);
   const [error,setError] = useState(false);
   const [errorText, setErrorText] = useState([])
   const [symbolObj, setSymbolObj] = useState({});
-  
-  console.log("symbol ", symbol , apiparams);
+  const [timer, setTimer] = useState(null)
 
   useEffect(() => {    
     fetchTweets()  
+    return(()=>{
+      /* on unmount, clear time interval */
+      clearInterval(timer)
+    })
   }, []);
 
   useEffect(() => {    
-    if(Object.keys(apiparams).length > 0){
-      setRefreshInterval(setInterval(() =>{
+    if(apiparams.since){
+      clearInterval(timer)      
+      setTimer(setInterval(() =>{
         fetchTweets(apiparams)
-      }, 15000)); 
+      }, 10000)) 
     }  
   }, [apiparams]);
 
   useEffect( ()=>{
     if (Object.keys(symbolObj).length > 0) {
       let nextParams = {
-        more: symbolObj.cursor.more,
         since: symbolObj.cursor.since - 1
       };
-      setApiParams(nextParams); 
-      if(!apiparams.since || !(apiparams.since+1 == symbolObj.cursor.since && symbolObj.messages.length === 1) ){
-        setTweets([...tweets, ...symbolObj.messages]);
+      setApiParams(nextParams);      
+      if(!apiparams.since || !(apiparams.since+1 === symbolObj.cursor.since && symbolObj.messages.length === 1) ){
+        /* 
+          update tweets
+          1. on initial page load
+          2. on lazy load , concat latest messages from api call where query params is=> since: <lastest since - 1>
+        */
+        let removeDuplicateTweet = symbolObj.messages.filter(v => v.id !== apiparams.since + 1 )
+        setTweets([...removeDuplicateTweet,...tweets]);
       }
     }   
   },[symbolObj])
 
   const fetchTweets = (params = apiparams) => {
-    Api.get(`streams/symbol/${symbol}.json`,{since:102655242,...params,limit:10})    
+    Api.get(`/streams/symbol/${symbol}.json`,{...params})    
       .then(resp => {
         setSymbolObj(resp)
       },err => {
@@ -88,19 +91,6 @@ const TweetDetails = ({ symbol, removeSymbol }) => {
         setErrorText(err.errors)
       });
   }
-
-  // const updateTweets = (resp) => { 
-  //   console.log('updateTweets ', params )
-  //   // let nextParams = {
-  //   //   more: resp.cursor.more,
-  //   //   since: resp.cursor.since - 1
-  //   // };
-  //   // setParams(nextParams);  
-  //   if(!params.since || !(params.since+1 == resp.cursor.since && resp.messages.length === 1) ){
-  //     console.log('updateTweets inside' )
-  //     //setTweets(resp.messages);
-  //   }    
-  // };
 
   const showTweets = () => {
     return tweets.map(val => {
@@ -137,7 +127,7 @@ const TweetDetails = ({ symbol, removeSymbol }) => {
                   <Header.Content>{`${symbolObj.symbol.title}  $${symbolObj.symbol.symbol}`}</Header.Content>          
                   <a
                     style={{ float: "right", padding: '5px', fontSize:'20px' }}
-                    onClick={() => { clearInterval(refreshInterval);removeSymbol(symbol)}}
+                    onClick={() => {  clearInterval(timer); setTimer(null); removeSymbol(symbol); }}
                     title={`Delete ${symbol}`}
                   >
                     X
@@ -170,7 +160,7 @@ const TweetDetails = ({ symbol, removeSymbol }) => {
                   <Header.Content>{symbol}</Header.Content>          
                   <a
                     style={{ float: "right", padding: '5px', fontSize:'20px' }}
-                    onClick={() => { clearInterval(refreshInterval);removeSymbol(symbol)}}
+                    onClick={() => { clearInterval(timer); setTimer(null); removeSymbol(symbol)}}
                     title={`Delete ${symbol}`}
                   >
                     X

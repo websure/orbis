@@ -1,5 +1,4 @@
 import AxiosClient from "./AxiosClient";
-import useStore from "../common/hoc/useStore";
 
 const defaultSettings = {
   withCredentials: false,

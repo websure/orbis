@@ -1,56 +1,44 @@
 import React, { useEffect, useState } from "react";
-import useStore from "../../common/hoc/useStore";
-import Api from "../../api";
+import Styled from "styled-components";
 import InputBox from "./InputBox";
 import { Grid } from "semantic-ui-react";
-import TweetDetails from "./TweetDetails";
-import { Divider } from "semantic-ui-react";
+import TweetsList from './TweetsList';
+
+const Watchlist = Styled.h4`
+  padding-left: 2rem !important;
+`;
 const TweetComponent = props => {
-  const { TweetStore } = props;
   const [userSymbols, setUserSymbols] = useState([]);
+  const [symbolsList, setSymbolsList] = useState([]);
+
+  useEffect(()=>{
+    setSymbolsList(userSymbols)
+  },[userSymbols]);
+
   const allSymbols = symbols => {
-    console.log("allSymbols ", symbols);
-    let x = [...userSymbols, ...symbols];
+    let x = [...symbolsList, ...symbols];
     setUserSymbols([...new Set(x)]);
   };
 
   const removeSymbol = symbol => {
-    console.log("remove ", symbol);
-    let index = userSymbols.indexOf(symbol);
-    let tempSymbols = userSymbols;
-    tempSymbols.splice(index, 1);
-    console.log("tempSymbols ", tempSymbols);
+    /* Remove selected tweet */
+    let tempSymbols = userSymbols.filter(s => s !== symbol)
     setUserSymbols([...tempSymbols]);
   };
-
-  const showDetails = () => {
-    return userSymbols.map(symbol => (
-      <Grid.Column 
-        key={symbol} 
-        mobile={16} 
-        tablet= {userSymbols.length <= 1 ? 16 : 8} 
-        computer={userSymbols.length <= 1 ? 16 : 8}
-      >
-        <TweetDetails                
-          symbol={symbol}
-          removeSymbol={removeSymbol}
-        />
-      </Grid.Column>
-    ))
-  }
 
   return (
     <>
       <h3>Stocktwits - Follow tweets of your stocks</h3>
       <Grid >
         <InputBox allSymbols={allSymbols} {...props} />
-        {userSymbols.length > 0 
-          ? showDetails()
-          : <h4>No watchlist yet. Search for Symbols to follow the tweets</h4>
+        {
+          symbolsList.length > 0
+            ? <TweetsList symbolsList={symbolsList} removeSymbol={removeSymbol} {...props} />
+            : <Watchlist>No watchlist yet. Search for Symbols to follow the tweets</Watchlist>
         }
       </Grid>
     </>
   );
 };
 
-export default useStore(TweetComponent);
+export default TweetComponent;

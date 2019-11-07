@@ -1,12 +1,6 @@
 import React from 'react';
-import Routes from './Routes';
-import {
-    BrowserRouter as Router
-  } from 'react-router-dom';
-import UseRouter from './common/hoc/useRouter';
+import TweetComponent from './components/tweets/TweetComponent';
 
-const App = (props) => {
-    return UseRouter(Routes)
-};
+const App = (props) => ( <TweetComponent {...props}/> )
 
 export default App;

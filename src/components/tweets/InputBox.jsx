@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Input,
-  Message,
   Icon,
   Grid,
   Button,
-  Checkbox,
-  Form
 } from "semantic-ui-react";
 import Styled from "styled-components";
 
@@ -24,7 +21,6 @@ const InputBox = ({ allSymbols }) => {
   const [showError, SetShowError] = useState(false);
   const [symbols, setSymbols] = useState("");
   const searchSymbols = (e, data) => {
-    //console.log(e,data)
     if (!data.value) {
       SetShowError(false);
       setSymbols("");
@@ -33,7 +29,6 @@ const InputBox = ({ allSymbols }) => {
     if (InputRegex.test(data.value)) {
       SetShowError(false);
       let symbols = data.value.split(",");
-      //allSymbols(symbols)
       setSymbols(symbols);
     } else {
       SetShowError(true);
@@ -52,7 +47,6 @@ const InputBox = ({ allSymbols }) => {
           <Input
             placeholder="Ex-AAPL,BABA,TSLA"
             onChange={searchSymbols}
-            //label='Enter symbols to search'
             error={showError}
             value={symbols}
             size="large"
@@ -67,12 +61,16 @@ const InputBox = ({ allSymbols }) => {
           </Button>
         </StyledInput>
       </Grid.Row>
-      <Grid.Row centered>
+      <Grid.Row centered
+        style={{paddingTop:'0px'}}
+      >
         {showError && (
-          <Message warning attached="bottom">
-            <Icon name="warning" />
+          <p 
+            style={{color:'#db2828'}}
+          >
+            <Icon name="dont" />
             Only comma separated input is accepted
-          </Message>
+          </p>
         )}
       </Grid.Row>
     </>
