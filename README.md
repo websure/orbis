@@ -1,5 +1,7 @@
 # StockTwits
 Responsive React Js application to search and view tweets of specified stocks.
+### Application URL
+  https://blissful-yonath-fb45e8.netlify.com
 ### Application Features!
   - Responsive React JS application
   - Auto fetch of latest tweets after every 30 seconds
@@ -22,3 +24,6 @@ $ npm start
 ### Description
     - Stocktwits api used for this demo - https://api.stocktwits.com/api/2/streams/symbol/${symbol}.json
         This is open API and returns latest 30 tweets
+
+For any queries please reach me at suresh.jain@ymail.com
+

@@ -6,7 +6,6 @@ const defaultSettings = {
   baseURL: "."
 };
 
-// baseURL: "https://api.stocktwits.com/api/2"
 const successHandler = response => {
   /* Add logic to log last time stamp of API, update authToken etc.. */
   return response;

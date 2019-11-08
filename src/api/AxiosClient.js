@@ -16,7 +16,6 @@ const AxiosClient = ({
   instance.interceptors.request.use(
     config => {
       /* Add logic to add/update request headers */
-      console.log('Api request object ', config) 
       return {
         ...config,
         headers: {
