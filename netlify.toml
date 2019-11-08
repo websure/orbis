@@ -2,7 +2,7 @@
 # routing internally.
 [[redirects]]
   from = "/streams/*"
-  to = "https://api.stocktwits.com/api/2/streams:splat"
+  to = "https://api.stocktwits.com/api/2/streams/:splat"
   status = 200
   force = true
 
