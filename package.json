@@ -2,6 +2,7 @@
   "name": "orbisstocktwitsdemo",
   "version": "1.0.0",
   "description": "",
+  "proxy":"https://api.stocktwits.com/api/2",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
