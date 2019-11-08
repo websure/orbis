@@ -1,2 +1,2 @@
 # Redirects from what the browser requests to what we serve
-/streams/*  https://api.stocktwits.com/api/2/streams/:splat  200
+/*  https://api.stocktwits.com/api/2/:splat  200!
