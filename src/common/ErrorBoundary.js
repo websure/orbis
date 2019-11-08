@@ -19,8 +19,8 @@ export default class ErrorBoundary extends Component {
         return (
             <Card style={{ padding: "5px", width: "100%", minHeight: '200px' }}>
               <Message negative>
-                  <Message.Header>Error</Message.Header>
-                  <h4>Error in loading this tweet.</h4>
+                  <Message.Header>Error Boundary</Message.Header>
+                  <h4>Something went wrong. Please reload your application.</h4>
               </Message>
             </Card>
         )

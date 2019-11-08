@@ -1,2 +1,2 @@
 # Redirects from what the browser requests to what we serve
-/*  https://api.stocktwits.com/api/2/:splat  200!
+/streams  https://api.stocktwits.com/api/2/streams/symbol/a.json  200!
