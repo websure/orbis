@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { 
   Message,
+  Card,
 } from "semantic-ui-react";
 export default class ErrorBoundary extends Component {
     constructor(props) {
@@ -16,10 +17,12 @@ export default class ErrorBoundary extends Component {
     render() {
       if (this.state.hasError) {
         return (
-            <Message negative>
-                <Message.Header>Error</Message.Header>
-                <h4>Error in loading this tweet.</h4>
-            </Message>
+            <Card style={{ padding: "5px", width: "100%", minHeight: '200px' }}>
+              <Message negative>
+                  <Message.Header>Error</Message.Header>
+                  <h4>Error in loading this tweet.</h4>
+              </Message>
+            </Card>
         )
       }
   
