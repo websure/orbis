@@ -13,7 +13,7 @@ const successHandler = response => {
 
 const errorHandler = error => {
   /* Add logic to edit error messages specific to UI, logs etc */
-  return Promise.reject(error.response.data);
+  return Promise.reject(error ? error.response.data : '');
 };
 
 const Api = AxiosClient({

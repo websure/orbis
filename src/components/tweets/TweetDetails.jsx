@@ -59,7 +59,7 @@ const TweetDetails = ({ symbol, removeSymbol }) => {
       clearInterval(timer)      
       setTimer(setInterval(() =>{
         fetchTweets(apiparams)
-      }, 10000)) 
+      }, 30000)) 
     }  
   }, [apiparams]);
 
