@@ -3,9 +3,10 @@ import AxiosClient from "./AxiosClient";
 const defaultSettings = {
   withCredentials: false,
   timeout: 60000,
-  baseURL: "https://api.stocktwits.com/api/2"
+  baseURL: "."
 };
 
+// baseURL: "https://api.stocktwits.com/api/2"
 const successHandler = response => {
   /* Add logic to log last time stamp of API, update authToken etc.. */
   return response;
